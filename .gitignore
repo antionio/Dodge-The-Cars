@@ -1,5 +1,11 @@
-*.class
-bin/*
+bin
+gen
+gwt-unitCache
+dodgethecars-html/war/assets
+dodgethecars-html/war/com.sturdyhelmetgames.dodgethecars.GwtDefinition
+dodgethecars-html/war/WEB-INF/classes
+dodgethecars-html/war/WEB-INF/deploy
+dodgethecars-html/.gwt
 
 # Package Files #
 #*.jar
