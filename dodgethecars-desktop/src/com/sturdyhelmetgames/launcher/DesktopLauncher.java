@@ -32,7 +32,7 @@ public class DesktopLauncher {
 		cfg.useGL20 = false;
 		cfg.vSyncEnabled = true;
 		cfg.width = 800;
-		cfg.height = 400;
+		cfg.height = 480;
 
 		new LwjglApplication(new DodgeTheCarsGame(), cfg);
 	}

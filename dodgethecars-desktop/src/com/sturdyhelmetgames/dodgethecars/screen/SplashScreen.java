@@ -47,7 +47,7 @@ public class SplashScreen extends TransitionScreen {
 		spriteBatch.begin();
 		// draw logo and background
 		spriteBatch.draw(Art.splashBackgroundTex, -25f, -25f, 50f, 50f);
-		spriteBatch.draw(Art.sturdyHelmetLogoTex, -12.5f, -20f, 25f, 35f);
+		spriteBatch.draw(Art.sturdyHelmetLogoTex, -15f, -20f, 30f, 35f);
 		spriteBatch.end();
 		super.renderScreen(delta);
 	}
