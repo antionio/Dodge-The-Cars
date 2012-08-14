@@ -17,4 +17,4 @@ http://www.sturdyhelmetgames.com
 
 http://libgdx.badlogicgames.com/
 
-http://code.google.com/p/libgdx/
+https://github.com/libgdx/libgdx
