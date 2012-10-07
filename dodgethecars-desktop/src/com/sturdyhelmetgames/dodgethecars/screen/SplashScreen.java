@@ -53,6 +53,14 @@ public class SplashScreen extends TransitionScreen {
 	}
 
 	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		if (screenTime < 4f) {
+			screenTime = 4f;
+		}
+		return true;
+	}
+
+	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.ESCAPE || keycode == Keys.ENTER) {
 			if (screenTime < 4f) {
