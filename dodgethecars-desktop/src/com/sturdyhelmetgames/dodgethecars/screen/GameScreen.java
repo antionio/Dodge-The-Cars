@@ -18,10 +18,14 @@ package com.sturdyhelmetgames.dodgethecars.screen;
 import java.util.Iterator;
 import java.util.Random;
 
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
+import com.badlogic.gdx.scenes.scene2d.ui.Touchpad.TouchpadStyle;
 import com.badlogic.gdx.utils.Array;
 import com.sturdyhelmetgames.dodgethecars.DodgeTheCarsGame;
 import com.sturdyhelmetgames.dodgethecars.RandomUtil;
@@ -59,12 +63,14 @@ public class GameScreen extends TransitionScreen {
 	private float gameTime;
 
 	/**
-	 * First time attribute that is used to control the speed of {@link Car} spawns.
+	 * First time attribute that is used to control the speed of {@link Car}
+	 * spawns.
 	 */
 	private float carSpeedUpTotalTime;
 
 	/**
-	 * Second time attribute that is used to control the speed of {@link Car} spawns.
+	 * Second time attribute that is used to control the speed of {@link Car}
+	 * spawns.
 	 */
 	private float carSpeedUpTime;
 
@@ -85,7 +91,8 @@ public class GameScreen extends TransitionScreen {
 	/**
 	 * List for game objects.
 	 */
-	private final Array<BasicEntity> gameEntities = new Array<BasicEntity>(false, 30);
+	private final Array<BasicEntity> gameEntities = new Array<BasicEntity>(
+			false, 30);
 
 	/**
 	 * Pool for cars.
@@ -120,12 +127,26 @@ public class GameScreen extends TransitionScreen {
 	/**
 	 * Holder for score text position.
 	 */
-	private final Vector3 scoreTextPosition = new Vector3(LEVEL_BOUNDARY_X_LEFT, LEVEL_BOUNDARY_Y_TOP - 1f, 0f);
+	private final Vector3 scoreTextPosition = new Vector3(
+			LEVEL_BOUNDARY_X_LEFT, LEVEL_BOUNDARY_Y_TOP - 1f, 0f);
+
+	/**
+	 * Stage for {@link Touchpad}.
+	 */
+	private final Stage stage;
+
+	/**
+	 * {@link Touchpad} for touch events.
+	 */
+	private final Touchpad touchpad;
+
+	/**
+	 * Indicates if touch controls are active or not.
+	 */
+	private boolean isTouchActive = false;
 
 	public GameScreen(DodgeTheCarsGame game) {
 		super(game);
-
-		Gdx.input.setInputProcessor(this);
 
 		player = new Squirrel();
 		gameEntities.add(player);
@@ -133,6 +154,20 @@ public class GameScreen extends TransitionScreen {
 		trafficLight = new TrafficLight();
 
 		camera.project(scoreTextPosition);
+
+		stage = new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),
+				true);
+		Gdx.input.setInputProcessor(stage);
+		touchpad = new Touchpad(2.0f, Art.skin.get("touchpad",
+				TouchpadStyle.class));
+		touchpad.setBounds(15, 15, 200, 200);
+		stage.addActor(touchpad);
+
+		// if touch-based device, activate touch controls
+		if (ApplicationType.Android.equals(Gdx.app.getType())
+				|| ApplicationType.iOS.equals(Gdx.app.getType())) {
+			isTouchActive = true;
+		}
 	}
 
 	@Override
@@ -140,6 +175,16 @@ public class GameScreen extends TransitionScreen {
 		super.updateScreen(fixedStep);
 
 		if (!paused) {
+
+			// touch controls if on android
+			if (isTouchActive) {
+				stage.act(fixedStep);
+				final float knobX = touchpad.getKnobX() - 100;
+				final float knobY = touchpad.getKnobY() - 100;
+				player.acceleration.x = knobX;
+				player.acceleration.y = knobY;
+			}
+
 			// cumulate timers
 			gameTime += fixedStep;
 			carSpeedUpTotalTime += fixedStep;
@@ -164,7 +209,8 @@ public class GameScreen extends TransitionScreen {
 				}
 
 				wave = Math.round(gameTime / TIME_PER_ROUND) + 1;
-				carSpeedUpTime = wave % 3 == 0 ? (carSpeedUpTotalTime * wave) / 5000 + 3.5f : 2f;
+				carSpeedUpTime = wave % 3 == 0 ? (carSpeedUpTotalTime * wave) / 5000 + 3.5f
+						: 2f;
 				if (carSpeedUpTime > 4.2f) {
 					carSpeedUpTotalTime = 2f;
 				}
@@ -177,18 +223,22 @@ public class GameScreen extends TransitionScreen {
 					final boolean side = getRandom().nextBoolean();
 					final float carX = side ? 35f : -35f;
 					final float carY = getRandom().nextInt(32) - 16;
-					final Direction carDirection = side ? Direction.LEFT : Direction.RIGHT;
+					final Direction carDirection = side ? Direction.LEFT
+							: Direction.RIGHT;
 					final int carColor = getRandom().nextInt(3);
-					final float maxVelocity = RandomUtil.oneOfFive() ? 20f : BasicEntity.VELOCITY_MAX;
+					final float maxVelocity = RandomUtil.oneOfFive() ? 20f
+							: BasicEntity.VELOCITY_MAX;
 
 					Car car = null;
 					if (carPool.size < 1) {
 						// pool didn't have spare cars, create a new one
-						car = new Car(carX, carY, carDirection, carColor, maxVelocity);
+						car = new Car(carX, carY, carDirection, carColor,
+								maxVelocity);
 					} else {
 						// pool had cars, fetch one and reset
 						car = carPool.get(0);
-						car.reset(carX, carY, carDirection, carColor, maxVelocity);
+						car.reset(carX, carY, carDirection, carColor,
+								maxVelocity);
 						carPool.removeIndex(0);
 					}
 					gameEntities.add(car);
@@ -217,7 +267,8 @@ public class GameScreen extends TransitionScreen {
 
 						PineCone pineCone = null;
 						if (pineConePool.size < 1) {
-							// pool didn't have spare pinecones, create a new one
+							// pool didn't have spare pinecones, create a new
+							// one
 							pineCone = new PineCone(powerupX, powerupY, color);
 						} else {
 							// pineConePool.sort();
@@ -235,7 +286,8 @@ public class GameScreen extends TransitionScreen {
 				checkInput(fixedStep);
 
 				// update entities
-				for (Iterator<BasicEntity> i = gameEntities.iterator(); i.hasNext();) {
+				for (Iterator<BasicEntity> i = gameEntities.iterator(); i
+						.hasNext();) {
 					BasicEntity entity = i.next();
 					entity.update(fixedStep);
 
@@ -271,11 +323,14 @@ public class GameScreen extends TransitionScreen {
 							player.score += (500 * (pineCone.color + 1));
 							// TODO: pool point objects
 							if (pineCone.color == PineCone.PINECONE_COLOR_BRONZE) {
-								gameEntities.add(new Point(pineCone.x, pineCone.y, PointType.POINT_500));
+								gameEntities.add(new Point(pineCone.x,
+										pineCone.y, PointType.POINT_500));
 							} else if (pineCone.color == PineCone.PINECONE_COLOR_SILVER) {
-								gameEntities.add(new Point(pineCone.x, pineCone.y, PointType.POINT_1000));
+								gameEntities.add(new Point(pineCone.x,
+										pineCone.y, PointType.POINT_1000));
 							} else if (pineCone.color == PineCone.PINECONE_COLOR_GOLD) {
-								gameEntities.add(new Point(pineCone.x, pineCone.y, PointType.POINT_1500));
+								gameEntities.add(new Point(pineCone.x,
+										pineCone.y, PointType.POINT_1500));
 							}
 						}
 
@@ -291,13 +346,15 @@ public class GameScreen extends TransitionScreen {
 					}
 					if (entity instanceof Heart) {
 						Heart heart = (Heart) entity;
-						// if heart hits player, "collect" it and get score and health
+						// if heart hits player, "collect" it and get score and
+						// health
 						if (player.isAlive() && heart.hit(player)) {
 							heart.collected = true;
 							player.score += 500;
 							player.replenishHealth();
 							// TODO: pool points
-							gameEntities.add(new Point(heart.x, heart.y, PointType.POINT_500));
+							gameEntities.add(new Point(heart.x, heart.y,
+									PointType.POINT_500));
 						}
 
 						if (!heart.isAlive() || heart.collected) {
@@ -345,9 +402,11 @@ public class GameScreen extends TransitionScreen {
 		// render hud
 		for (int i = 0; i < Squirrel.HEALTH_MAX; i++) {
 			if (i < player.health) {
-				spriteBatch.draw(Art.heartTex, LEVEL_BOUNDARY_X_LEFT + i * 2f, LEVEL_BOUNDARY_Y_TOP - 1f, 2f, 2f);
+				spriteBatch.draw(Art.heartTex, LEVEL_BOUNDARY_X_LEFT + i * 2f,
+						LEVEL_BOUNDARY_Y_TOP - 1f, 2f, 2f);
 			} else {
-				spriteBatch.draw(Art.heartBlackTex, LEVEL_BOUNDARY_X_LEFT + i * 2f, LEVEL_BOUNDARY_Y_TOP - 1f, 2f, 2f);
+				spriteBatch.draw(Art.heartBlackTex, LEVEL_BOUNDARY_X_LEFT + i
+						* 2f, LEVEL_BOUNDARY_Y_TOP - 1f, 2f, 2f);
 			}
 		}
 
@@ -358,11 +417,16 @@ public class GameScreen extends TransitionScreen {
 
 		spriteBatch.end();
 
+		if (isTouchActive) {
+			stage.draw();
+		}
+
 		// render fps and additional stuff for debugging
 		spriteBatch.getProjectionMatrix().set(normalProjection);
 		spriteBatch.begin();
 
-		Art.scoreFont.draw(spriteBatch, String.valueOf(player.score), scoreTextPosition.x, scoreTextPosition.y);
+		Art.scoreFont.draw(spriteBatch, String.valueOf(player.score),
+				scoreTextPosition.x, scoreTextPosition.y);
 
 		if (isDebug()) {
 			Art.debugFont.draw(spriteBatch, "Score: " + player.score, 0, 40);
@@ -379,8 +443,10 @@ public class GameScreen extends TransitionScreen {
 					numOfCarsInPool++;
 				}
 			}
-			Art.debugFont.draw(spriteBatch, "Number of cars in play: " + numOfCarsInPlay, 0, 60);
-			Art.debugFont.draw(spriteBatch, "Number of cars in pool: " + numOfCarsInPool, 0, 80);
+			Art.debugFont.draw(spriteBatch, "Number of cars in play: "
+					+ numOfCarsInPlay, 0, 60);
+			Art.debugFont.draw(spriteBatch, "Number of cars in pool: "
+					+ numOfCarsInPool, 0, 80);
 
 			int numOfPineConesInPlay = 0;
 			int numOfPineConesInPool = 0;
@@ -395,9 +461,12 @@ public class GameScreen extends TransitionScreen {
 				}
 			}
 
-			Art.debugFont.draw(spriteBatch, "Number of pine cones in play: " + numOfPineConesInPlay, 0, 100);
-			Art.debugFont.draw(spriteBatch, "Number of pine cones in pool: " + numOfPineConesInPool, 0, 120);
-			Art.debugFont.draw(spriteBatch, "Game speed up time: " + carSpeedUpTime, 0, 140);
+			Art.debugFont.draw(spriteBatch, "Number of pine cones in play: "
+					+ numOfPineConesInPlay, 0, 100);
+			Art.debugFont.draw(spriteBatch, "Number of pine cones in pool: "
+					+ numOfPineConesInPool, 0, 120);
+			Art.debugFont.draw(spriteBatch, "Game speed up time: "
+					+ carSpeedUpTime, 0, 140);
 			Art.debugFont.draw(spriteBatch, "Round: " + wave, 0, 160);
 
 		}
@@ -439,6 +508,7 @@ public class GameScreen extends TransitionScreen {
 				game.setScreen(new TitleScreen(game));
 			}
 		}
+
 	}
 
 	@Override
@@ -474,6 +544,12 @@ public class GameScreen extends TransitionScreen {
 	 */
 	private Random getRandom() {
 		return RandomUtil.getRandom();
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		stage.dispose();
 	}
 
 }

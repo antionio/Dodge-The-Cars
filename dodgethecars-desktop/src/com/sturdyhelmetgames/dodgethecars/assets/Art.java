@@ -23,6 +23,9 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Touchpad.TouchpadStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
  * Entry point for game art.
@@ -36,16 +39,27 @@ public class Art {
 		// method hidden
 	}
 
-	private static final String FOLDER_IMAGES = "data" + File.separator + "images" + File.separator;
-	private static final String ASSET_TEXTURE_SPLASHSCREEN = FOLDER_IMAGES + "sturdyhelmetgames.png";
-	private static final String ASSET_TEXTURE_TITLESCREEN = FOLDER_IMAGES + "title.png";
-	private static final String ASSET_TEXTURE_BACKGROUND = FOLDER_IMAGES + "background.png";
-	private static final String ASSET_TEXTURE_CAR = FOLDER_IMAGES + "cartextures.png";
-	private static final String ASSET_TEXTURE_GAMETEXTURES = FOLDER_IMAGES + "gametextures.png";
+	private static final String FOLDER_IMAGES = "data" + File.separator
+			+ "images" + File.separator;
+	private static final String ASSET_TEXTURE_SPLASHSCREEN = FOLDER_IMAGES
+			+ "sturdyhelmetgames.png";
+	private static final String ASSET_TEXTURE_TITLESCREEN = FOLDER_IMAGES
+			+ "title.png";
+	private static final String ASSET_TEXTURE_BACKGROUND = FOLDER_IMAGES
+			+ "background.png";
+	private static final String ASSET_TEXTURE_CAR = FOLDER_IMAGES
+			+ "cartextures.png";
+	private static final String ASSET_TEXTURE_GAMETEXTURES = FOLDER_IMAGES
+			+ "gametextures.png";
+	private static final String ASSET_TEXTURE_CONTROLTEXTURES = FOLDER_IMAGES
+			+ "onscreencontrols.png";
 
-	private static final String FOLDER_FONTS = "data" + File.separator + "fonts" + File.separator;
-	private static final String ASSET_FONT_DEBUGFONT = FOLDER_FONTS + "creativeblock15_black.fnt";
-	private static final String ASSET_FONT_SCOREFONT = FOLDER_FONTS + "creativeblock30_white.fnt";
+	private static final String FOLDER_FONTS = "data" + File.separator
+			+ "fonts" + File.separator;
+	private static final String ASSET_FONT_DEBUGFONT = FOLDER_FONTS
+			+ "creativeblock15_black.fnt";
+	private static final String ASSET_FONT_SCOREFONT = FOLDER_FONTS
+			+ "creativeblock30_white.fnt";
 
 	// textures
 	public static Texture backgroundTexture;
@@ -53,6 +67,7 @@ public class Art {
 	public static Texture titleScreenTexture;
 	private static Texture gameTexture;
 	private static Texture carTexture;
+	private static Texture controlTexture;
 
 	// texture regions and animations for drawing
 	public static TextureRegion sturdyHelmetLogoTex;
@@ -85,6 +100,11 @@ public class Art {
 	public static BitmapFont debugFont;
 	public static BitmapFont scoreFont;
 
+	// skin
+	public static Skin skin;
+	public static TextureRegionDrawable controlBackgroundTex;
+	public static TextureRegionDrawable controlKnobTex;
+
 	/**
 	 * Loads assets for game.
 	 */
@@ -99,9 +119,11 @@ public class Art {
 		backgroundTexture = loadTexture(ASSET_TEXTURE_BACKGROUND);
 		gameTexture = loadTexture(ASSET_TEXTURE_GAMETEXTURES);
 		carTexture = loadTexture(ASSET_TEXTURE_CAR);
+		controlTexture = loadTexture(ASSET_TEXTURE_CONTROLTEXTURES);
 
-		squirrelWalkDownAnimation = new Animation(0.2f, new TextureRegion(gameTexture, 86, 0, 85, 170),
-				new TextureRegion(gameTexture, 172, 0, 85, 170));
+		squirrelWalkDownAnimation = new Animation(0.2f, new TextureRegion(
+				gameTexture, 86, 0, 85, 170), new TextureRegion(gameTexture,
+				172, 0, 85, 170));
 		squirrelStandTex = new TextureRegion(gameTexture, 85, 170);
 		shadowTex = new TextureRegion(gameTexture, 172, 205, 40, 11);
 		heartTex = new TextureRegion(gameTexture, 172, 171, 37, 33);
@@ -118,32 +140,56 @@ public class Art {
 		trafficLightGreen = new TextureRegion(gameTexture, 427, 0, 84, 177);
 		gameOver = new TextureRegion(gameTexture, 4, 232, 503, 187);
 
-		final TextureRegion[][] carFrames = new TextureRegion(carTexture).split(256, 174);
-		final TextureRegion[][] carFramesFlipped = new TextureRegion(carTexture).split(256, 174);
+		final TextureRegion[][] carFrames = new TextureRegion(carTexture)
+				.split(256, 174);
+		final TextureRegion[][] carFramesFlipped = new TextureRegion(carTexture)
+				.split(256, 174);
 		// flip frames
 		for (TextureRegion[] frames : carFramesFlipped) {
 			for (TextureRegion frame : frames) {
 				frame.flip(true, false);
 			}
 		}
-		carRedDriveLeftAnimation = new Animation(0.1f, carFrames[0][0], carFrames[0][1], carFrames[1][0],
-				carFrames[1][1], carFrames[0][2]);
-		carRedDriveRightAnimation = new Animation(0.1f, carFramesFlipped[0][0], carFramesFlipped[0][1],
-				carFramesFlipped[1][0], carFramesFlipped[1][1], carFramesFlipped[0][2]);
+		carRedDriveLeftAnimation = new Animation(0.1f, carFrames[0][0],
+				carFrames[0][1], carFrames[1][0], carFrames[1][1],
+				carFrames[0][2]);
+		carRedDriveRightAnimation = new Animation(0.1f, carFramesFlipped[0][0],
+				carFramesFlipped[0][1], carFramesFlipped[1][0],
+				carFramesFlipped[1][1], carFramesFlipped[0][2]);
 
-		carCyanDriveLeftAnimation = new Animation(0.1f, carFrames[2][1], carFrames[3][1], carFrames[2][2],
-				carFrames[3][2], carFrames[2][3]);
-		carCyanDriveRightAnimation = new Animation(0.1f, carFramesFlipped[2][1], carFramesFlipped[3][1],
-				carFramesFlipped[2][2], carFramesFlipped[3][2], carFramesFlipped[2][3]);
+		carCyanDriveLeftAnimation = new Animation(0.1f, carFrames[2][1],
+				carFrames[3][1], carFrames[2][2], carFrames[3][2],
+				carFrames[2][3]);
+		carCyanDriveRightAnimation = new Animation(0.1f,
+				carFramesFlipped[2][1], carFramesFlipped[3][1],
+				carFramesFlipped[2][2], carFramesFlipped[3][2],
+				carFramesFlipped[2][3]);
 
-		carGreenDriveLeftAnimation = new Animation(0.1f, carFrames[1][2], carFrames[0][3], carFrames[1][3],
-				carFrames[2][0], carFrames[3][0]);
-		carGreenDriveRightAnimation = new Animation(0.1f, carFramesFlipped[1][2], carFramesFlipped[0][3],
-				carFramesFlipped[1][3], carFramesFlipped[2][0], carFramesFlipped[3][0]);
+		carGreenDriveLeftAnimation = new Animation(0.1f, carFrames[1][2],
+				carFrames[0][3], carFrames[1][3], carFrames[2][0],
+				carFrames[3][0]);
+		carGreenDriveRightAnimation = new Animation(0.1f,
+				carFramesFlipped[1][2], carFramesFlipped[0][3],
+				carFramesFlipped[1][3], carFramesFlipped[2][0],
+				carFramesFlipped[3][0]);
 
 		// load fonts
-		debugFont = new BitmapFont(Gdx.files.internal(ASSET_FONT_DEBUGFONT), false);
-		scoreFont = new BitmapFont(Gdx.files.internal(ASSET_FONT_SCOREFONT), false);
+		debugFont = new BitmapFont(Gdx.files.internal(ASSET_FONT_DEBUGFONT),
+				false);
+		scoreFont = new BitmapFont(Gdx.files.internal(ASSET_FONT_SCOREFONT),
+				false);
+
+		controlBackgroundTex = new TextureRegionDrawable(new TextureRegion(
+				controlTexture, 176, 176));
+		controlKnobTex = new TextureRegionDrawable(new TextureRegion(
+				controlTexture, 179, 0, 77, 77));
+		controlKnobTex.setMinWidth(100);
+		controlKnobTex.setMinHeight(100);
+
+		skin = new Skin();
+		final TouchpadStyle touchpadStyle = new TouchpadStyle(
+				controlBackgroundTex, controlKnobTex);
+		skin.add("touchpad", touchpadStyle);
 	}
 
 	/**
@@ -156,9 +202,13 @@ public class Art {
 		backgroundTexture.dispose();
 		carTexture.dispose();
 		gameTexture.dispose();
+		controlTexture.dispose();
 
 		// dispose fonts
 		scoreFont.dispose();
+
+		// dispose skin
+		skin.dispose();
 	}
 
 	/**

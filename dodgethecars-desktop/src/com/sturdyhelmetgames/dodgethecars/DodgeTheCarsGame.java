@@ -18,6 +18,7 @@ package com.sturdyhelmetgames.dodgethecars;
 import com.badlogic.gdx.Game;
 import com.sturdyhelmetgames.dodgethecars.assets.Art;
 import com.sturdyhelmetgames.dodgethecars.assets.Sound;
+import com.sturdyhelmetgames.dodgethecars.screen.GameScreen;
 import com.sturdyhelmetgames.dodgethecars.screen.SplashScreen;
 
 /**
