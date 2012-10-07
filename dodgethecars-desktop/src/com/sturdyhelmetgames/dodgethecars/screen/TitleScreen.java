@@ -28,7 +28,7 @@ import com.sturdyhelmetgames.dodgethecars.assets.Art;
  */
 public class TitleScreen extends TransitionScreen {
 
-	private boolean keyPressed = false;
+	private boolean changeScreen = false;
 
 	public TitleScreen(DodgeTheCarsGame game) {
 		super(game);
@@ -39,7 +39,8 @@ public class TitleScreen extends TransitionScreen {
 	protected void updateScreen(float fixedStep) {
 		super.updateScreen(fixedStep);
 
-		if (keyPressed && screenTime > 4.99f) {
+		// change screen if conditions are met
+		if (changeScreen && screenTime > 4.99f) {
 			game.setScreen(new GameScreen(game));
 		}
 	}
@@ -53,15 +54,15 @@ public class TitleScreen extends TransitionScreen {
 		spriteBatch.end();
 
 		renderFadeIn();
-		if (keyPressed) {
+		if (changeScreen) {
 			renderFadeOut(4f);
 		}
 	}
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		if (screenTime < 4f) {
-			keyPressed = true;
+		if (changeScreen == false) {
+			changeScreen = true;
 			screenTime = 4f;
 		}
 		return super.touchDown(screenX, screenY, pointer, button);
@@ -70,7 +71,7 @@ public class TitleScreen extends TransitionScreen {
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.ESCAPE || keycode == Keys.ENTER) {
-			keyPressed = true;
+			changeScreen = true;
 			screenTime = 4f;
 			return true;
 		}
