@@ -55,9 +55,9 @@ public class TitleScreen extends TransitionScreen {
 		spriteBatch.draw(Art.titleScreenTexture, -24f, -39f, 48f, 55f);
 		spriteBatch.end();
 
-		renderFadeIn();
+		renderFadeIn(delta);
 		if (changeScreen) {
-			renderFadeOut(4f);
+			renderFadeOut(delta);
 		}
 	}
 

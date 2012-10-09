@@ -31,8 +31,11 @@ import com.sturdyhelmetgames.dodgethecars.DodgeTheCarsGame;
 public abstract class TransitionScreen extends BasicScreen {
 
 	protected float screenTime;
+	private float fadeAlpha = 1f;
 	protected Color transitionColor = new Color();
 	private final ShapeRenderer renderer = new ShapeRenderer();
+
+	private static final float FADE_OUT_START_TIME = 4f;
 
 	public TransitionScreen(DodgeTheCarsGame game) {
 		super(game);
@@ -45,22 +48,26 @@ public abstract class TransitionScreen extends BasicScreen {
 
 	@Override
 	public void renderScreen(float delta) {
-		renderFadeIn();
-		renderFadeOut(4f);
+		renderFadeIn(delta);
+		renderFadeOut(delta);
 	}
 
 	/**
 	 * Renders fade in transition.
+	 * 
+	 * @param delta
+	 *            delta time
 	 */
-	protected void renderFadeIn() {
+	protected void renderFadeIn(float delta) {
 		// a simple fade in transition
 		if (screenTime > -1f && screenTime < 0.99f) {
-			transitionColor.set(0f, 0f, 0f, 1f - screenTime);
+			transitionColor.set(0f, 0f, 0f, fadeAlpha -= delta);
 
 			Gdx.gl.glEnable(GL20.GL_BLEND);
 			renderer.begin(ShapeType.FilledRectangle);
-			renderer.filledRect(0f, 0f, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), transitionColor,
-					transitionColor, transitionColor, transitionColor);
+			renderer.filledRect(0f, 0f, Gdx.graphics.getWidth(),
+					Gdx.graphics.getHeight(), transitionColor, transitionColor,
+					transitionColor, transitionColor);
 			renderer.end();
 			Gdx.gl.glDisable(GL20.GL_BLEND);
 		}
@@ -68,15 +75,19 @@ public abstract class TransitionScreen extends BasicScreen {
 
 	/**
 	 * Renders fade out transition.
+	 * 
+	 * @param delta
+	 *            delta time
 	 */
-	protected void renderFadeOut(float fadeOutTime) {
-		if (screenTime > fadeOutTime) {
-			transitionColor.set(0f, 0f, 0f, screenTime - fadeOutTime);
+	protected void renderFadeOut(float delta) {
+		if (screenTime > FADE_OUT_START_TIME) {
+			transitionColor.set(0f, 0f, 0f, fadeAlpha += delta);
 
 			Gdx.gl.glEnable(GL20.GL_BLEND);
 			renderer.begin(ShapeType.FilledRectangle);
-			renderer.filledRect(0f, 0f, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), transitionColor,
-					transitionColor, transitionColor, transitionColor);
+			renderer.filledRect(0f, 0f, Gdx.graphics.getWidth(),
+					Gdx.graphics.getHeight(), transitionColor, transitionColor,
+					transitionColor, transitionColor);
 			renderer.end();
 			Gdx.gl.glDisable(GL20.GL_BLEND);
 		}

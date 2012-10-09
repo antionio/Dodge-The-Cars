@@ -473,7 +473,7 @@ public class GameScreen extends TransitionScreen {
 
 		spriteBatch.end();
 
-		renderFadeIn();
+		renderFadeIn(delta);
 	}
 
 	/**
