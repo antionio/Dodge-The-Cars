@@ -18,7 +18,7 @@ public final class SwarmConstants {
 	}
 
 	public static final class Leaderboard {
-		public static final int GLOBAL_ID = 2943;
+		public static final int GLOBAL_ID = 0; // YOUR LEADERBOARD ID GOES HERE.
 	}
 
 	public static final class Achievement {
