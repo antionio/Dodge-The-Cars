@@ -85,6 +85,20 @@ public class DodgeTheCarsActivity extends AndroidApplication {
 
 	};
 
+	/**
+	 * Updates leaderboard with given score.
+	 * 
+	 * @param score
+	 *            Player score.
+	 */
+	private void updateLeaderboard(int score) {
+		if (Swarm.isLoggedIn()) {
+			if (globalLeaderboard != null) {
+				globalLeaderboard.submitScore(score);
+			}
+		}
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -102,7 +116,10 @@ public class DodgeTheCarsActivity extends AndroidApplication {
 					if (evt.type == SwarmEvent.EVENT_TYPE_OPEN_LEADERBOARD) {
 						mHandler.post(mUpdateResults);
 					} else if (evt.type == SwarmEvent.EVENT_TYPE_UPDATE_LEADERBOARD) {
-
+						if (evt.eventValue != null) {
+							Integer value = (Integer) evt.eventValue;
+							updateLeaderboard(value.intValue());
+						}
 					}
 				}
 			}

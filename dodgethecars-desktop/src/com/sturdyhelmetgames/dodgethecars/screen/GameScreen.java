@@ -41,6 +41,7 @@ import com.sturdyhelmetgames.dodgethecars.entity.Point;
 import com.sturdyhelmetgames.dodgethecars.entity.Point.PointType;
 import com.sturdyhelmetgames.dodgethecars.entity.Squirrel;
 import com.sturdyhelmetgames.dodgethecars.entity.TrafficLight;
+import com.sturdyhelmetgames.dodgethecars.events.EventCache;
 
 /**
  * Main game screen.
@@ -305,6 +306,10 @@ public class GameScreen extends TransitionScreen {
 									Sound.musicHappyGoLucky.stop();
 								}
 								Sound.soundSquirrelDie.play();
+
+								// update leaderboard with player score
+								EventCache.updateLeaderboard.eventValue = player.score;
+								game.fireEvent(EventCache.updateLeaderboard);
 							}
 						}
 

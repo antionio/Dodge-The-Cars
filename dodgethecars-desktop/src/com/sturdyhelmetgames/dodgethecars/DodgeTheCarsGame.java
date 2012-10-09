@@ -66,7 +66,6 @@ public class DodgeTheCarsGame extends Game {
 	 * @param evt
 	 */
 	public void fireEvent(SwarmEvent evt) {
-		System.out.println("Fired event");
 		for (SwarmEventListener listener : eventListenerList) {
 			listener.eventOccurred(evt);
 		}

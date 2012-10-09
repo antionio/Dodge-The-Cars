@@ -1,7 +1,7 @@
 package com.sturdyhelmetgames.dodgethecars.events;
 
 /**
- * Contains static references to various events that are dispatched to the
+ * Contains static references to various events that are dispatched to an
  * external application.
  * 
  * @author Antti

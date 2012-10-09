@@ -42,7 +42,7 @@ public class Squirrel extends BasicEntity {
 	/**
 	 * Current score.
 	 */
-	public long score = 0;
+	public int score = 0;
 
 	/**
 	 * Maximum velocity.
@@ -136,14 +136,17 @@ public class Squirrel extends BasicEntity {
 		if (damagedTick <= 0f) {
 			if (!isAlive()) {
 				// if squirrel is dead, draw it flattened
-				spriteBatch.draw(Art.squirrelStandTex, x, y, 0f, 0f, width * 2, height / 2, scale, scale, 0f);
+				spriteBatch.draw(Art.squirrelStandTex, x, y, 0f, 0f, width * 2,
+						height / 2, scale, scale, 0f);
 			} else if (isNotMoving()) {
 				// if squirrel is not moving, draw it standing
-				spriteBatch.draw(Art.squirrelStandTex, x, y, 0f, 0f, width, height, scale, scale, 0f);
+				spriteBatch.draw(Art.squirrelStandTex, x, y, 0f, 0f, width,
+						height, scale, scale, 0f);
 			} else {
 				// if squirrel is moving, draw walking animation
-				spriteBatch.draw(Art.squirrelWalkDownAnimation.getKeyFrame(animationState, true), x, y, 0f, 0f, width,
-						height, scale, scale, 0f);
+				spriteBatch.draw(Art.squirrelWalkDownAnimation.getKeyFrame(
+						animationState, true), x, y, 0f, 0f, width, height,
+						scale, scale, 0f);
 			}
 		}
 
