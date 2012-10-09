@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/background"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="#cccccc"
+	>
+	<LinearLayout
+	    android:orientation="vertical"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    >
+	    
+	    <include layout="@layout/swarm_header" />
+	    
+	    <LinearLayout
+	    	android:orientation="vertical"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"
+	    	android:padding="15dip"
+	    	>
+	    	
+	    	<LinearLayout
+		    	android:orientation="horizontal"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="wrap_content"
+		    	android:gravity="center_vertical"
+		    	android:paddingLeft="10dip" >
+		    	<ImageView
+		    		android:id="@+id/image"
+		    		android:layout_width="wrap_content"
+		    		android:layout_height="wrap_content"
+					android:layout_marginRight="10dip"
+					android:src="@drawable/swarm_friend"
+		    		/>
+		    	<TextView
+					android:id="@+id/username"
+				    android:layout_width="wrap_content" 
+				    android:layout_height="wrap_content"
+				    android:text="Username"
+				    android:textColor="#222222"
+				    android:textStyle="bold"
+				    android:textSize="18dip"
+				    android:shadowColor="#cccccc"
+    				android:shadowDx="1"
+    				android:shadowDy="1"
+	    			android:shadowRadius="1"
+				    />
+		    </LinearLayout>
+	
+			<View
+				android:layout_width="fill_parent"
+				android:layout_height="1px"
+				android:layout_marginTop="10dip"
+				android:layout_marginBottom="10dip"
+				android:background="#666666"
+				/>
+						
+			<LinearLayout
+				android:id="@+id/upgrade_box"
+				android:orientation="vertical"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				>
+				<TextView
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+			    	android:layout_marginTop="11dip"
+			    	android:textColor="#222222"
+					android:text="By selecting your username, you will show up in leaderboards and save your data in the cloud, so you can access it from any where, any time."
+		    		android:shadowColor="#cccccc"
+		    		android:shadowDx="1"
+		    		android:shadowDy="1"
+		    		android:shadowRadius="1"
+					/>
+					
+			    <Button
+			    	android:id="@+id/upgrade"
+			    	android:layout_width="fill_parent"
+			    	android:layout_height="wrap_content"
+			    	android:text="Select Username"
+			    	android:textStyle="bold"
+			    	android:textColor="#000000"
+			    	android:textSize="16dip"
+			    	android:shadowColor="#ffffff"
+			    	android:shadowDx="1.0"
+			    	android:shadowDy="1.0"
+			    	android:shadowRadius="0.5"
+			    	android:layout_marginTop="6dip"
+			    	android:layout_marginBottom="6dip"
+			    	android:padding="9dip"
+			    	/>
+			</LinearLayout>	
+			
+			<LinearLayout
+				android:id="@+id/set_password_box"
+				android:orientation="vertical"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				>
+				<TextView
+					android:id="@+id/password_error"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+			    	android:textSize="12dp"
+			    	android:gravity="right|bottom"
+					/>
+				
+				<LinearLayout
+					android:orientation="horizontal"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					>
+					<TextView
+						android:layout_width="130dip"
+						android:layout_height="wrap_content"
+						android:text="Current Password"
+						android:textColor="#222222"
+			    		android:shadowColor="#cccccc"
+			    		android:shadowDx="1"
+			    		android:shadowDy="1"
+			    		android:shadowRadius="1"
+						/>
+					<EditText
+						android:id="@+id/current_password"
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"
+						android:singleLine="true"
+						android:inputType="textPassword"
+				    	android:imeOptions="flagNoExtractUi"
+						/>
+				</LinearLayout>
+				<LinearLayout
+					android:orientation="horizontal"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					>
+					<TextView
+						android:layout_width="130dip"
+						android:layout_height="wrap_content"
+						android:text="New Password"
+						android:textColor="#222222"
+			    		android:shadowColor="#cccccc"
+			    		android:shadowDx="1"
+			    		android:shadowDy="1"
+			    		android:shadowRadius="1"
+						/>
+					<EditText
+						android:id="@+id/new_password"
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"
+						android:singleLine="true"
+						android:inputType="textPassword"
+				    	android:imeOptions="flagNoExtractUi"
+						/>
+				</LinearLayout>
+				<LinearLayout
+					android:orientation="horizontal"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					>
+					<TextView
+						android:layout_width="130dip"
+						android:layout_height="wrap_content"
+						android:text="Confirm Password"
+						android:textColor="#222222"
+			    		android:shadowColor="#cccccc"
+			    		android:shadowDx="1"
+			    		android:shadowDy="1"
+			    		android:shadowRadius="1"
+						/>
+					<EditText
+						android:id="@+id/confirm_password"
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"
+						android:singleLine="true"
+						android:inputType="textPassword"
+				    	android:imeOptions="flagNoExtractUi"
+						/>
+				</LinearLayout>
+				
+			    <Button
+			    	android:id="@+id/set_pass"
+			    	android:layout_width="fill_parent"
+			    	android:layout_height="wrap_content"
+			    	android:text="Change Password"
+			    	android:textStyle="bold"
+			    	android:textColor="#000000"
+			    	android:textSize="16dip"
+			    	android:shadowColor="#ffffff"
+			    	android:shadowDx="1.0"
+			    	android:shadowDy="1.0"
+			    	android:shadowRadius="0.5"
+			    	android:layout_marginTop="6dip"
+			    	android:layout_marginBottom="6dip"
+			    	android:padding="9dip"
+			    	/>
+				
+			</LinearLayout>
+			
+			<LinearLayout
+				android:id="@+id/password_box"
+				android:orientation="vertical"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				>
+				<TextView
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+			    	android:textColor="#222222"
+					android:text="You can change your password below."
+					android:layout_marginBottom="5dip"
+		    		android:shadowColor="#cccccc"
+		    		android:shadowDx="1"
+		    		android:shadowDy="1"
+		    		android:shadowRadius="1"
+					/>
+					
+			    <Button
+			    	android:id="@+id/change_pass"
+			    	android:layout_width="fill_parent"
+			    	android:layout_height="wrap_content"
+			    	android:text="Change Password"
+			    	android:textStyle="bold"
+			    	android:textColor="#000000"
+			    	android:textSize="16dip"
+			    	android:shadowColor="#ffffff"
+			    	android:shadowDx="1.0"
+			    	android:shadowDy="1.0"
+			    	android:shadowRadius="0.5"
+			    	android:layout_marginTop="6dip"
+			    	android:layout_marginBottom="6dip"
+			    	android:padding="9dip"
+			    	/>
+			</LinearLayout>
+		
+			<View
+				android:layout_width="fill_parent"
+				android:layout_height="1px"
+				android:layout_marginTop="10dip"
+				android:layout_marginBottom="10dip"
+				android:background="#666666"
+				/>
+		
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+		    	android:layout_marginTop="11dip"
+		    	android:textColor="#222222"
+				android:text="Push Notifications are a way for applications to notify you of important things in real-time."
+	    		android:shadowColor="#cccccc"
+	    		android:shadowDx="1"
+	    		android:shadowDy="1"
+	    		android:shadowRadius="1"
+				/>
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center" >
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+			    	android:textColor="#222222"
+					android:text="Push Enabled:"
+					android:shadowColor="#cccccc"
+		    		android:shadowDx="1"
+		    		android:shadowDy="1"
+		    		android:shadowRadius="1"
+					/>
+				<CheckBox
+					android:id="@+id/notifications"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					/>
+			</LinearLayout>
+
+			<View
+				android:layout_width="fill_parent"
+				android:layout_height="1px"
+				android:layout_marginTop="10dip"
+				android:layout_marginBottom="10dip"
+				android:background="#666666"
+				/>
+				
+		    <Button
+		    	android:id="@+id/logout"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="wrap_content"
+		    	android:text="Logout"
+		    	android:textColor="#000000"
+		    	android:shadowColor="#ffffff"
+		    	android:shadowDx="1.0"
+		    	android:shadowDy="1.0"
+		    	android:shadowRadius="0.5"
+		    	android:textStyle="bold"
+		    	android:layout_marginTop="20dip"
+		    	android:padding="11dip"
+		    	/>
+	    	
+	    </LinearLayout>
+	    
+	</LinearLayout>
+</ScrollView>

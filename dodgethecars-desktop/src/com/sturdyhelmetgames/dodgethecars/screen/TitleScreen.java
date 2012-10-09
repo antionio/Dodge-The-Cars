@@ -17,8 +17,10 @@ package com.sturdyhelmetgames.dodgethecars.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.math.Vector3;
 import com.sturdyhelmetgames.dodgethecars.DodgeTheCarsGame;
 import com.sturdyhelmetgames.dodgethecars.assets.Art;
+import com.sturdyhelmetgames.dodgethecars.events.EventCache;
 
 /**
  * Title screen for game instructions.
@@ -61,9 +63,16 @@ public class TitleScreen extends TransitionScreen {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		if (changeScreen == false) {
+		final Vector3 position = new Vector3(screenX, screenY, 0f);
+		camera.unproject(position);
+		if (position.x > 10f && position.x < 23f && position.y > -15f
+				&& position.y < -10f) {
+			game.fireEvent(EventCache.openLeaderboard);
+			return true;
+		} else if (changeScreen == false) {
 			changeScreen = true;
 			screenTime = 4f;
+			return true;
 		}
 		return super.touchDown(screenX, screenY, pointer, button);
 	}

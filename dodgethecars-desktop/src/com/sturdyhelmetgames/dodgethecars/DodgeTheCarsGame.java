@@ -16,9 +16,12 @@
 package com.sturdyhelmetgames.dodgethecars;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.utils.Array;
 import com.sturdyhelmetgames.dodgethecars.assets.Art;
 import com.sturdyhelmetgames.dodgethecars.assets.Sound;
-import com.sturdyhelmetgames.dodgethecars.screen.GameScreen;
+import com.sturdyhelmetgames.dodgethecars.events.EventCache;
+import com.sturdyhelmetgames.dodgethecars.events.SwarmEvent;
+import com.sturdyhelmetgames.dodgethecars.events.SwarmEventListener;
 import com.sturdyhelmetgames.dodgethecars.screen.SplashScreen;
 
 /**
@@ -31,11 +34,19 @@ public class DodgeTheCarsGame extends Game {
 
 	public static boolean DEBUG = false;
 
+	/**
+	 * List of event listeners that fire events to the android application (or
+	 * other higher level app).
+	 */
+	public Array<SwarmEventListener> eventListenerList = new Array<SwarmEventListener>(
+			false, 1);
+
 	@Override
 	public void create() {
 		// load the assets and splash screen
 		Art.load();
 		Sound.load();
+		EventCache.load(this);
 		setScreen(new SplashScreen(this));
 	}
 
@@ -47,6 +58,18 @@ public class DodgeTheCarsGame extends Game {
 		}
 		Art.dispose();
 		Sound.dispose();
+	}
+
+	/**
+	 * Fire an event to the event listener.
+	 * 
+	 * @param evt
+	 */
+	public void fireEvent(SwarmEvent evt) {
+		System.out.println("Fired event");
+		for (SwarmEventListener listener : eventListenerList) {
+			listener.eventOccurred(evt);
+		}
 	}
 
 }

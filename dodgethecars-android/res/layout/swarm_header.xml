@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	>
+	
+	<LinearLayout
+		android:id="@+id/header"
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="right|center_vertical"
+		>
+		
+		<ImageView
+		    android:id="@+id/logo"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/swarm_logo"
+		    android:layout_marginTop="5dip"
+		    android:layout_marginBottom="5dip"
+		    android:layout_marginLeft="10dip"
+		    />
+		    
+		<View
+			android:layout_width="1px"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			/>
+		    
+		<ImageButton
+			android:id="@+id/home"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@drawable/swarm_home"
+			android:background="@null"
+			android:padding="7dip"
+			/>
+		<ImageButton
+			android:id="@+id/messages"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@drawable/swarm_messages"
+			android:background="@null"
+			android:padding="7dip"
+			android:layout_marginRight="3dip"
+			/>
+		<ImageButton
+			android:id="@+id/close"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@drawable/swarm_quit"
+			android:background="@null"
+			android:padding="7dip"
+			/>
+            
+	</LinearLayout>
+	
+	<View
+	   	android:layout_width="fill_parent"
+	   	android:layout_height="1px"
+	   	android:background="#2c7ab3"
+	   	/>
+	   	
+    <LinearLayout
+       	android:orientation="horizontal"
+        android:id="@+id/sheader"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#333333"
+        android:padding="5dip"
+        android:gravity="center_vertical"
+		>
+        <ImageView
+            android:id="@+id/sheader_icon"
+            android:layout_width="16dip"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside" />
+
+        <TextView
+            android:id="@+id/sheader_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            android:layout_weight="1"
+            android:textColor="#dddddd"
+            android:singleLine="true"
+            android:ellipsize="end" />
+
+        <LinearLayout
+            android:id="@+id/sheader_btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dip"
+            android:background="#555555"
+            android:paddingTop="4dip"
+            android:paddingBottom="4dip"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+        	>
+            <TextView
+                android:id="@+id/sheader_btn1_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="my scores"
+                android:textSize="11dip"
+                android:textColor="#cccccc" />
+
+            <TextView
+            	android:id="@+id/sheader_btn1_dropdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="▼"
+                android:textSize="10sp"
+                android:textColor="#999999"
+                android:layout_marginLeft="2dip" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sheader_btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#555555"
+            android:paddingTop="4dip"
+            android:paddingBottom="4dip"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+        	>
+            <TextView
+                android:id="@+id/sheader_btn2_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="today"
+                android:textSize="11dip"
+                android:textColor="#cccccc" />
+
+            <TextView
+               	android:id="@+id/sheader_btn2_dropdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="▼"
+                android:textSize="10sp"
+                android:textColor="#999999"
+                android:layout_marginLeft="2dip" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="#777777" />
+	   	
+	<TextView
+		android:id="@+id/offline_error"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:paddingLeft="10dip"
+		android:paddingRight="10dip"
+		android:paddingTop="2dip"
+		android:paddingBottom="2dip"
+		android:background="#f2e012"
+		android:gravity="center"
+		android:text="You are offline. Some data may be unavailable."
+		android:textColor="#000000"
+		android:textSize="11dip"
+		/>
+		
+	<View
+		android:id="@+id/offline_error_underline"
+		android:layout_width="fill_parent"
+		android:layout_height="1px"
+		android:background="#7f6b12"
+	    />
+</LinearLayout>

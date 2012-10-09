@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/background"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#cccccc"
+    >
+    
+    <include layout="@layout/swarm_header" />
+    	
+    <TextView
+    	android:id="@+id/empty_list"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_gravity="center"
+    	android:gravity="center"
+    	android:text="\n\n\nYou don't have any Swarm friends yet!  You can add them by name at the bottom."
+    	android:textStyle="bold"
+    	android:textColor="#000000"
+    	android:visibility="gone"
+    	android:shadowColor="#cccccc"
+    	android:shadowDx="1"
+    	android:shadowDy="1"
+    	android:shadowRadius="1"
+    	/>
+    	
+    <ListView
+    	android:id="@+id/list"
+    	android:layout_width="fill_parent"
+    	android:layout_height="1dip"
+    	android:layout_weight="1"
+    	android:divider="#888888"
+    	android:dividerHeight="1px"
+    	android:cacheColorHint="#00000000"
+    	/>
+    
+    <View
+    	android:layout_width="fill_parent"
+    	android:layout_height="1px"
+    	android:background="#bdbdbd"
+    	/>
+    	
+    <LinearLayout
+    	android:id="@+id/footer"
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:padding="8dip"
+    	>
+    	<EditText
+	    	android:id="@+id/add_friend_username"
+	    	android:layout_width="1px"
+	    	android:layout_height="wrap_content"
+	    	android:layout_weight="1"
+	    	android:layout_marginRight="8dip"
+	    	android:hint="Add a Friend..."
+	    	/>
+	    <ImageButton
+	    	android:id="@+id/add"
+	    	android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:paddingTop="11dip"
+	    	android:paddingBottom="11dip"
+	    	android:paddingLeft="8dip"
+	    	android:paddingRight="8dip"
+	    	android:src="@drawable/swarm_add_friend"
+	    	android:background="@null"
+	    	/>
+    </LinearLayout>
+    	
+</LinearLayout>

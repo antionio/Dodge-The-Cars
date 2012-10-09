@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	>
+	
+	<LinearLayout
+		android:id="@+id/header"
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="right|center_vertical"
+		>
+		
+		<ImageView
+		    android:id="@+id/logo"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/swarm_logo"
+		    android:layout_marginTop="5dip"
+		    android:layout_marginBottom="5dip"
+		    android:layout_marginLeft="10dip"
+		    />
+		    
+		<View
+			android:layout_width="1px"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			/>
+			
+		<LinearLayout
+			android:id="@+id/facebook_login"
+			android:orientation="horizontal"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="#ffffff"
+			android:gravity="center_vertical"
+			android:layout_marginRight="10dip"
+			android:paddingTop="2dip"
+			android:paddingBottom="2dip"
+			android:paddingRight="8dip"
+			android:paddingLeft="8dip"
+			>
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/swarm_facebook_icon"
+				android:layout_marginRight="5dip"
+				/>
+			<TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Login" 
+		        android:textColor="#ffffff"
+		        android:textStyle="bold"
+		        android:shadowColor="#000000"
+		        android:shadowDx="1"
+		        android:shadowDy="1"
+		        android:shadowRadius="1"
+		        />
+		</LinearLayout>
+	</LinearLayout>
+	
+	<View
+	   	android:layout_width="fill_parent"
+	   	android:layout_height="1px"
+	   	android:background="#2c7ab3"
+	   	/>
+	    
+</LinearLayout>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dip"
+    android:paddingBottom="5dip"
+    android:paddingRight="10dip"
+    android:paddingLeft="10dip"
+    >
+    
+    <ImageView 
+    	android:id="@+id/profile_pic"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="4dip"
+		android:layout_marginRight="10dip"
+		android:src="@drawable/swarm_friend" />
+    
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_weight="1"
+    	>
+    	<TextView
+			android:id="@+id/username"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content"
+		    android:text="Username"
+		    android:textColor="#222222"
+		    android:textStyle="bold"
+		    android:textSize="18dip"
+		    android:shadowColor="#cccccc"
+	    	android:shadowDx="1"
+	    	android:shadowDy="1"
+	    	android:shadowRadius="1"
+		    />
+    	<TextView
+    		android:id="@+id/online_text"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:textColor="#222222"
+    		android:textSize="12dip"
+    		android:shadowColor="#cccccc"
+    		android:shadowDx="1"
+    		android:shadowDy="1"
+    		android:shadowRadius="1"
+    		/>
+    </LinearLayout>
+    
+    <LinearLayout
+    	android:id="@+id/friended_section"
+    	android:orientation="vertical"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_marginTop="4dip"
+    	android:gravity="top|center_horizontal"
+    	>
+    	<ImageView
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/swarm_trophy"
+		    />
+    	<TextView
+    		android:id="@+id/points"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:textStyle="bold"
+    		android:shadowColor="#cccccc"
+    		android:shadowDx="1"
+    		android:shadowDy="1"
+    		android:shadowRadius="1"
+    		/>
+    </LinearLayout>
+    
+    <LinearLayout
+    	android:id="@+id/unfriended_section"
+    	android:orientation="horizontal"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_gravity="center_vertical"
+    	android:visibility="gone"
+    	>
+    	<ImageButton
+    		android:id="@+id/accept"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content"
+		    android:padding="8dip"
+		    android:layout_marginRight="10dip"
+		    android:src="@drawable/swarm_checkmark"
+		    android:background="@null"
+		    />
+		    
+    	<ImageButton
+    		android:id="@+id/deny"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content"
+		    android:padding="8dip"
+		    android:src="@drawable/swarm_x"
+		    android:layout_marginRight="10dip"
+   		    android:background="@null"
+		    />
+    </LinearLayout>
+    
+</LinearLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/background"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#cccccc"
+    android:orientation="vertical" >
+
+    <include layout="@layout/swarm_header" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >
+        <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical"
+	        android:padding="25dp" >
+	
+	        <LinearLayout
+	            android:id="@+id/tapjoy"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:background="#555555"
+	            android:gravity="center_vertical|left"
+	            android:orientation="vertical"
+	            android:padding="20dp" >
+	
+	            <TextView
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="TapJoy"
+	                android:textColor="#ffffff"
+	                android:textSize="25dp"
+	                android:textStyle="bold" />
+	
+	            <TextView
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="Try free games to get coins." />
+	        </LinearLayout>
+	        
+	        <LinearLayout
+	            android:id="@+id/zong"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="20dp"
+	            android:background="#555555"
+	            android:gravity="center_vertical|left"
+	            android:orientation="vertical"
+	            android:padding="20dp" >
+	
+	            <TextView
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="Zong"
+	                android:textColor="#ffffff"
+	                android:textSize="25dp"
+	                android:textStyle="bold" />
+	
+	            <TextView
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="Buy coins via text message (SMS)." />
+	        </LinearLayout>
+	        
+	        <LinearLayout
+	            android:id="@+id/paypal"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="20dp"
+	            android:background="#555555"
+	            android:gravity="center_vertical|left"
+	            android:orientation="vertical"
+	            android:padding="20dp" >
+	
+	            <TextView
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="Paypal"
+	                android:textColor="#ffffff"
+	                android:textSize="25dp"
+	                android:textStyle="bold" />
+	
+	            <TextView
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="Purchase coins through Paypal." />
+	        </LinearLayout>
+	
+	    </LinearLayout>
+        
+    </ScrollView>
+</LinearLayout>

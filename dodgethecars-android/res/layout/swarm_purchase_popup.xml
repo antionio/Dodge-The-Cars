@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swarm_purchase_popup"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+>
+
+    <RelativeLayout
+        android:id="@+id/popup_header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingTop="5dip"
+        android:paddingBottom="5dip"
+        android:paddingLeft="5dip"
+        android:paddingRight="10dip"
+    >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="18dip"
+            android:scaleType="fitStart"
+            android:src="@drawable/swarm_logo"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:layout_toLeftOf="@+id/coins_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Cost "
+            android:textSize="12dip" />
+
+        <ImageView
+            android:id="@+id/coins_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="15dip"
+            android:scaleType="centerInside"
+            android:src="@drawable/swarm_coin"
+            android:layout_toLeftOf="@+id/coins"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:id="@+id/coins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dip"
+            android:textColor="#ffffff"
+            android:textSize="16dip"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="#999999" />
+
+    <RelativeLayout
+        android:id="@+id/popup_top_half"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip"
+    >
+
+        <com.swarmconnect.ui.AsyncImageView
+            android:id="@+id/image"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:layout_marginRight="10dip"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+             />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/image"
+            android:layout_alignParentTop="true"
+            android:textColor="#ffffff"
+            android:textSize="24dip"
+            android:textStyle="bold"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1" />
+            
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/image"
+            android:layout_below="@id/title"
+            android:textColor="#ffffff"
+            android:textSize="18dip"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="#999999" />
+
+    <LinearLayout
+        android:id="@+id/popup_bottom_half"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip"
+    >
+        <TextView
+            android:id="@+id/purchase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="10dip"
+            android:gravity="center"
+            android:padding="8dip"
+            android:text="Purchase"
+            android:textSize="20dip"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1" />
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dip"
+            android:text="No Thanks"
+            android:textSize="20dip"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1" />
+    </LinearLayout>
+
+</LinearLayout>

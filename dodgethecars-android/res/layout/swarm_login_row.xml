@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dip"
+    >
+    
+    <LinearLayout
+    	android:id="@+id/row"
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+   	    android:paddingTop="10dip"
+	    android:paddingBottom="10dip"
+	    android:paddingRight="10dip"
+	    android:paddingLeft="10dip"
+	    android:gravity="center_vertical"
+    	>
+    	<ImageView 
+	    	android:id="@+id/profile_pic"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginRight="10dip"
+			android:src="@drawable/swarm_friend" />
+	    
+	    <TextView
+			android:id="@+id/username"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content"
+		    android:layout_marginRight="8dip"
+		    android:textColor="#222222"
+		    android:textStyle="bold"
+		    android:textSize="18dip"
+		    android:shadowColor="#cccccc"
+		   	android:shadowDx="1"
+		   	android:shadowDy="1"
+		   	android:shadowRadius="1"
+		    />
+		    
+    	<ImageView 
+	    	android:id="@+id/external_provider"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+
+		<View
+			android:layout_width="1px"
+			android:layout_height="1px"
+			android:layout_weight="1"
+			/>
+		    
+		<ImageView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@drawable/swarm_trophy"
+			/>
+			
+		<TextView
+			android:id="@+id/points"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+		    android:textColor="#222222"
+		    android:textStyle="bold"
+		    android:textSize="18dip"
+		    android:shadowColor="#cccccc"
+		   	android:shadowDx="1"
+		   	android:shadowDy="1"
+		   	android:shadowRadius="1"
+		   	/>
+    	
+    </LinearLayout>
+</LinearLayout>
