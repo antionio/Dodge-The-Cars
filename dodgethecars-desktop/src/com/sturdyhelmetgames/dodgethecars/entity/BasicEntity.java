@@ -55,11 +55,11 @@ public abstract class BasicEntity implements Comparable<BasicEntity> {
 	/**
 	 * Maximum acceleration.
 	 */
-	public static final float ACCELERATION_MAX = 30f;
+	public static final float ACCELERATION_MAX = 25f;
 	/**
 	 * Maximum velocity.
 	 */
-	public static final float VELOCITY_MAX = 15f;
+	public static final float VELOCITY_MAX = 13f;
 	/**
 	 * Minimum moving velocity.
 	 */
@@ -100,7 +100,8 @@ public abstract class BasicEntity implements Comparable<BasicEntity> {
 	 * @param hitBoxWidth
 	 * @param hitBoxHeight
 	 */
-	public BasicEntity(float x, float y, float width, float height, float hitBoxWidth, float hitBoxHeight) {
+	public BasicEntity(float x, float y, float width, float height,
+			float hitBoxWidth, float hitBoxHeight) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -145,8 +146,8 @@ public abstract class BasicEntity implements Comparable<BasicEntity> {
 	}
 
 	/**
-	 * Renders the entity. The default is to draw the entity's shadow. The shadow is drawn to indicate the entity's
-	 * hitbox.
+	 * Renders the entity. The default is to draw the entity's shadow. The
+	 * shadow is drawn to indicate the entity's hitbox.
 	 * 
 	 * @param spriteBatch
 	 * @param delta
@@ -155,8 +156,9 @@ public abstract class BasicEntity implements Comparable<BasicEntity> {
 		final float shadowZZ = zz * 0.1f;
 		final float shadowOffsetX = shadowZZ / 2;
 		// draw shadow
-		spriteBatch.draw(Art.shadowTex, x + shadowOffsetX, y - 0.2f, 0f, 01f, hitBoxWidth - shadowZZ, hitBoxHeight
-				- shadowOffsetX, getScale(), getScale(), 0f);
+		spriteBatch.draw(Art.shadowTex, x + shadowOffsetX, y - 0.2f, 0f, 01f,
+				hitBoxWidth - shadowZZ, hitBoxHeight - shadowOffsetX,
+				getScale(), getScale(), 0f);
 	}
 
 	/**
@@ -186,7 +188,9 @@ public abstract class BasicEntity implements Comparable<BasicEntity> {
 	 * @return True if not moving, false if is.
 	 */
 	public boolean isNotMoving() {
-		if (velocity.x > -MOVING_VELOCITY_MIN && velocity.x < MOVING_VELOCITY_MIN && velocity.y > -MOVING_VELOCITY_MIN
+		if (velocity.x > -MOVING_VELOCITY_MIN
+				&& velocity.x < MOVING_VELOCITY_MIN
+				&& velocity.y > -MOVING_VELOCITY_MIN
 				&& velocity.y < MOVING_VELOCITY_MIN) {
 			return true;
 		}
@@ -195,7 +199,7 @@ public abstract class BasicEntity implements Comparable<BasicEntity> {
 
 	@Override
 	public int compareTo(BasicEntity o) {
-		if (y <= o.y) {
+		if (y < o.y) {
 			return 1;
 		} else if (y > o.y) {
 			return -1;
@@ -224,8 +228,8 @@ public abstract class BasicEntity implements Comparable<BasicEntity> {
 	}
 
 	/**
-	 * Returns the current scale for the entity. Scale calculation is based on the position of the {@link BasicEntity}
-	 * on the y-axis.
+	 * Returns the current scale for the entity. Scale calculation is based on
+	 * the position of the {@link BasicEntity} on the y-axis.
 	 * 
 	 * @return Scale
 	 */
