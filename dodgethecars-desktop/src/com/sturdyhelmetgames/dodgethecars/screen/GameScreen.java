@@ -506,6 +506,9 @@ public class GameScreen extends TransitionScreen {
 				player.acceleration.x = -BasicEntity.ACCELERATION_MAX;
 			}
 		} else {
+			if (Gdx.input.isTouched()) {
+				game.setScreen(new TitleScreen(game));
+			}
 			if (Gdx.input.isKeyPressed(Keys.Y)) {
 				game.setScreen(new GameScreen(game));
 			}
