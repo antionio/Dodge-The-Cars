@@ -157,7 +157,20 @@ public class GameScreen extends TransitionScreen {
 		camera.project(scoreTextPosition);
 
 		stage = new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),
-				true);
+				true) {
+			@Override
+			public boolean keyDown(int keyCode) {
+				if (keyCode == Keys.P) {
+					if (paused) {
+						resume();
+					} else {
+						pause();
+					}
+					return true;
+				}
+				return super.keyDown(keyCode);
+			}
+		};
 		Gdx.input.setInputProcessor(stage);
 		touchpad = new Touchpad(2.0f, Art.skin.get("touchpad",
 				TouchpadStyle.class));
@@ -175,10 +188,13 @@ public class GameScreen extends TransitionScreen {
 	protected void updateScreen(float fixedStep) {
 		super.updateScreen(fixedStep);
 
+		// check input and after that update entities
+		checkInput(fixedStep);
+
 		if (!paused) {
 
 			// touch controls if on android
-			if (isTouchActive) {
+			if (isTouchActive && player.isAlive()) {
 				stage.act(fixedStep);
 				final float knobX = touchpad.getKnobX() - 100;
 				final float knobY = touchpad.getKnobY() - 100;
@@ -282,9 +298,6 @@ public class GameScreen extends TransitionScreen {
 						gameEntities.add(pineCone);
 					}
 				}
-
-				// check input and after that update entities
-				checkInput(fixedStep);
 
 				// update entities
 				for (Iterator<BasicEntity> i = gameEntities.iterator(); i
@@ -487,50 +500,38 @@ public class GameScreen extends TransitionScreen {
 	 * @param fixedStep
 	 */
 	private void checkInput(float fixedStep) {
-		if (player.isAlive()) {
-			// process player movement keys
-			if (Gdx.input.isKeyPressed(Keys.UP)) {
-				player.direction = Direction.UP;
-				player.acceleration.y = BasicEntity.ACCELERATION_MAX;
-			}
-			if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-				player.direction = Direction.DOWN;
-				player.acceleration.y = -BasicEntity.ACCELERATION_MAX;
-			}
-			if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-				player.direction = Direction.RIGHT;
-				player.acceleration.x = BasicEntity.ACCELERATION_MAX;
-			}
-			if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-				player.direction = Direction.LEFT;
-				player.acceleration.x = -BasicEntity.ACCELERATION_MAX;
-			}
-		} else {
-			if (Gdx.input.isTouched()) {
-				game.setScreen(new TitleScreen(game));
-			}
-			if (Gdx.input.isKeyPressed(Keys.Y)) {
-				game.setScreen(new GameScreen(game));
-			}
-			if (Gdx.input.isKeyPressed(Keys.N)) {
-				game.setScreen(new TitleScreen(game));
-			}
-		}
-
-	}
-
-	@Override
-	public boolean keyDown(int keycode) {
-		boolean handled = super.keyDown(keycode);
-		if (keycode == Keys.P) {
-			if (paused) {
-				resume();
+		if (!paused) {
+			if (player.isAlive()) {
+				// process player movement keys
+				if (Gdx.input.isKeyPressed(Keys.UP)) {
+					player.direction = Direction.UP;
+					player.acceleration.y = BasicEntity.ACCELERATION_MAX;
+				}
+				if (Gdx.input.isKeyPressed(Keys.DOWN)) {
+					player.direction = Direction.DOWN;
+					player.acceleration.y = -BasicEntity.ACCELERATION_MAX;
+				}
+				if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+					player.direction = Direction.RIGHT;
+					player.acceleration.x = BasicEntity.ACCELERATION_MAX;
+				}
+				if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+					player.direction = Direction.LEFT;
+					player.acceleration.x = -BasicEntity.ACCELERATION_MAX;
+				}
 			} else {
-				pause();
+				if (Gdx.input.isTouched()) {
+					game.setScreen(new TitleScreen(game));
+				}
+				if (Gdx.input.isKeyPressed(Keys.Y)) {
+					game.setScreen(new GameScreen(game));
+				}
+				if (Gdx.input.isKeyPressed(Keys.N)) {
+					game.setScreen(new TitleScreen(game));
+				}
 			}
-			return true;
 		}
-		return handled;
+
 	}
 
 	@Override
