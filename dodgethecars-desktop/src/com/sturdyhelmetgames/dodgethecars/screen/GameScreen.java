@@ -161,6 +161,8 @@ public class GameScreen extends TransitionScreen {
 	public GameScreen(final DodgeTheCarsGame game) {
 		super(game);
 
+		Gdx.input.setCatchBackKey(true);
+
 		player = new Squirrel();
 		gameEntities.add(player);
 
@@ -175,14 +177,14 @@ public class GameScreen extends TransitionScreen {
 				if (gameTime > 3.5f) {
 					if (!paused && !gameOver) {
 						if (keyCode == Keys.P || keyCode == Keys.ESCAPE
-								|| keyCode == Keys.BACK) {
+								|| keyCode == Keys.BACK || keyCode == Keys.HOME) {
 							pause();
 							return true;
 						}
 					} else if (paused) {
 						if (keyCode == Keys.P || keyCode == Keys.ESCAPE
 								|| keyCode == Keys.BACK || keyCode == Keys.C) {
-							resume();
+							resumeGame();
 							return true;
 						} else if (keyCode == Keys.Q) {
 							updateLeaderboard();
@@ -581,9 +583,7 @@ public class GameScreen extends TransitionScreen {
 		pauseIndicator.reset();
 	}
 
-	@Override
-	public void resume() {
-		super.resume();
+	public void resumeGame() {
 		paused = false;
 	}
 

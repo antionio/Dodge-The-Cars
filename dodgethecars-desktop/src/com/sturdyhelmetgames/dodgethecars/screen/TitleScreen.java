@@ -65,16 +65,29 @@ public class TitleScreen extends TransitionScreen {
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		final Vector3 position = new Vector3(screenX, screenY, 0f);
 		camera.unproject(position);
+		boolean touchedButton = false;
 		if (position.x > 10f && position.x < 23f && position.y > -15f
 				&& position.y < -10f) {
-			game.fireEvent(EventCache.openLeaderboard);
-			return true;
-		} else if (changeScreen == false) {
+			touchedButton = true;
+		}
+		if (!touchedButton && changeScreen == false) {
 			changeScreen = true;
 			screenTime = 4f;
 			return true;
 		}
 		return super.touchDown(screenX, screenY, pointer, button);
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		final Vector3 position = new Vector3(screenX, screenY, 0f);
+		camera.unproject(position);
+		if (position.x > 10f && position.x < 23f && position.y > -15f
+				&& position.y < -10f) {
+			game.fireEvent(EventCache.openLeaderboard);
+			return true;
+		}
+		return super.touchUp(screenX, screenY, pointer, button);
 	}
 
 	@Override

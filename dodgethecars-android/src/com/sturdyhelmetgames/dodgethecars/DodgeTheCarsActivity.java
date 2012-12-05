@@ -17,10 +17,15 @@ package com.sturdyhelmetgames.dodgethecars;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
 import com.sturdyhelmetgames.dodgethecars.events.SwarmEvent;
 import com.sturdyhelmetgames.dodgethecars.events.SwarmEventListener;
 import com.swarmconnect.Swarm;
@@ -38,6 +43,11 @@ import com.swarmconnect.delegates.SwarmLoginListener;
 public class DodgeTheCarsActivity extends AndroidApplication {
 
 	/**
+	 * AdMob publisher code.
+	 */
+	private static final String ADMOB_PUBLISHER_CODE = "";
+
+	/**
 	 * Reference to the libgdx game instance.
 	 */
 	private DodgeTheCarsGame game;
@@ -52,8 +62,11 @@ public class DodgeTheCarsActivity extends AndroidApplication {
 				Swarm.init(DodgeTheCarsActivity.this,
 						SwarmConstants.App.APP_ID, SwarmConstants.App.APP_AUTH,
 						mySwarmLoginListener);
+			} else if (!Swarm.isLoggedIn()) {
+				Swarm.showLogin();
+			} else {
+				Swarm.showLeaderboards();
 			}
-			Swarm.showLeaderboards();
 		}
 	};
 
@@ -117,17 +130,13 @@ public class DodgeTheCarsActivity extends AndroidApplication {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-		game = new DodgeTheCarsGame();
-		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		config.useGL20 = false;
-		initialize(game, config);
+		initializeGame();
 
 		game.eventListenerList.add(new SwarmEventListener() {
 			@Override
 			public void eventOccurred(SwarmEvent evt) {
 				if (evt != null) {
+					System.out.println("Open leaderboards event occured lol.");
 					if (evt.type == SwarmEvent.EVENT_TYPE_OPEN_LEADERBOARD) {
 						mHandler.post(mUpdateResults);
 					} else if (evt.type == SwarmEvent.EVENT_TYPE_UPDATE_LEADERBOARD) {
@@ -147,6 +156,48 @@ public class DodgeTheCarsActivity extends AndroidApplication {
 			Swarm.init(this, SwarmConstants.App.APP_ID,
 					SwarmConstants.App.APP_AUTH, mySwarmLoginListener);
 		}
+	}
+
+	/**
+	 * Initializes the game instance and AdMob and sets the content view.
+	 */
+	private void initializeGame() {
+		// Create the layout
+		RelativeLayout layout = new RelativeLayout(this);
+
+		// Do the stuff that initialize() would do for you
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().clearFlags(
+				WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+		// Create the libgdx View
+		game = new DodgeTheCarsGame();
+		View gameView = initializeForView(game, false);
+
+		// Add the libgdx view
+		layout.addView(gameView);
+
+		// Create and setup the AdMob view
+		AdView adView = new AdView(this, AdSize.BANNER, ADMOB_PUBLISHER_CODE);
+		AdRequest request = new AdRequest();
+		// request.addTestDevice(AdRequest.TEST_EMULATOR);
+		request.addTestDevice("0146A5B213014005");
+		adView.loadAd(request);
+
+		// Add the AdMob view
+		RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(
+				RelativeLayout.LayoutParams.MATCH_PARENT,
+				RelativeLayout.LayoutParams.WRAP_CONTENT);
+		adParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		adParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+		layout.addView(adView, adParams);
+
+		// Hook it all up
+		setContentView(layout);
 	}
 
 	@Override
