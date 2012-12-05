@@ -97,6 +97,11 @@ public class GameScreen extends TransitionScreen {
 	private boolean gameOver = false;
 
 	/**
+	 * Tells how long game over lasts.
+	 */
+	private float gameOverTime = 0f;
+
+	/**
 	 * List for game objects.
 	 */
 	private final Array<BasicEntity> gameEntities = new Array<BasicEntity>(
@@ -196,6 +201,7 @@ public class GameScreen extends TransitionScreen {
 					if (gameOver) {
 						if (keyCode == Keys.R) {
 							game.setScreen(new GameScreen(game));
+							return true;
 						} else if (keyCode == Keys.Q) {
 							game.setScreen(new TitleScreen(game));
 							return true;
@@ -204,6 +210,44 @@ public class GameScreen extends TransitionScreen {
 				}
 				return super.keyDown(keyCode);
 			}
+
+			@Override
+			public boolean touchUp(int screenX, int screenY, int pointer,
+					int button) {
+				final Vector3 position = new Vector3(screenX, screenY, 0f);
+				camera.unproject(position);
+
+				if (gameTime > 3.5f) {
+					if (paused) {
+						// very dirty code, sorry :)
+						if (position.x > -7f && position.x < 7f
+								&& position.y > 3f && position.y < 6f) {
+							resumeGame();
+							return true;
+						} else if (position.x > -7f && position.x < 7f
+								&& position.y < -4f && position.y > -7f) {
+							updateLeaderboard();
+							game.setScreen(new TitleScreen(game));
+							return true;
+						}
+					}
+					if (gameOver) {
+						// very dirty code, sorry :)
+						if (position.x > -7f && position.x < 7f
+								&& position.y > 4f && position.y < 7f) {
+							game.setScreen(new GameScreen(game));
+							return true;
+						} else if (position.x > -7f && position.x < 7f
+								&& position.y < -4f && position.y > -7f) {
+							game.setScreen(new TitleScreen(game));
+							return true;
+						}
+					}
+				}
+
+				return super.touchUp(screenX, screenY, pointer, button);
+			}
+
 		};
 		Gdx.input.setInputProcessor(stage);
 		touchpad = new Touchpad(2.0f, Art.skin.get("touchpad",
@@ -265,7 +309,10 @@ public class GameScreen extends TransitionScreen {
 			trafficLight.update(fixedStep);
 
 			if (gameOver) {
-				gameOverIndicator.update(fixedStep);
+				gameOverTime += fixedStep;
+				if (gameOverTime > 2f) {
+					gameOverIndicator.update(fixedStep);
+				}
 			}
 
 			if (gameTime > 3f) {

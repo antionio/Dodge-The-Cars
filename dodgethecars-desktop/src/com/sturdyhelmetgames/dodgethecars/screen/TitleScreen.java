@@ -20,6 +20,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector3;
 import com.sturdyhelmetgames.dodgethecars.DodgeTheCarsGame;
 import com.sturdyhelmetgames.dodgethecars.assets.Art;
+import com.sturdyhelmetgames.dodgethecars.assets.Sound;
 import com.sturdyhelmetgames.dodgethecars.events.EventCache;
 
 /**
@@ -35,6 +36,9 @@ public class TitleScreen extends TransitionScreen {
 	public TitleScreen(DodgeTheCarsGame game) {
 		super(game);
 		Gdx.input.setInputProcessor(this);
+		if (Sound.musicHappyGoLucky.isPlaying()) {
+			Sound.musicHappyGoLucky.stop();
+		}
 	}
 
 	@Override

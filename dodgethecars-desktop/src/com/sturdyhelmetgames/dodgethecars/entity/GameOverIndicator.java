@@ -30,7 +30,7 @@ public class GameOverIndicator extends BasicEntity {
 	/**
 	 * Initial position.
 	 */
-	protected static final Vector2 initialPos = new Vector2(0f, -20f);
+	protected static final Vector2 initialPos = new Vector2(0f, -30f);
 	/**
 	 * Target position.
 	 */

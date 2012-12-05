@@ -7,7 +7,8 @@ public class PauseIndicator extends GameOverIndicator {
 
 	@Override
 	public void render(SpriteBatch spriteBatch, float delta) {
-		spriteBatch.draw(Art.pauseScreen, x - width / 2, y - height / 2, width, height);
+		spriteBatch.draw(Art.pauseScreen, x - width / 2, y - height / 2, width,
+				height);
 	}
 
 }
