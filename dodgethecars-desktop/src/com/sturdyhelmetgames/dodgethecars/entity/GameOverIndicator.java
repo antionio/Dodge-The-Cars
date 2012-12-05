@@ -30,21 +30,21 @@ public class GameOverIndicator extends BasicEntity {
 	/**
 	 * Initial position.
 	 */
-	private static final Vector2 initialPos = new Vector2(35f, -6f);
+	protected static final Vector2 initialPos = new Vector2(0f, -20f);
 	/**
 	 * Target position.
 	 */
-	private final Vector2 targetPos = new Vector2(-15f, -6f);
+	protected final Vector2 targetPos = new Vector2(0f, 0f);
 	/**
 	 * Current position.
 	 */
-	private final Vector2 currentPos = new Vector2(initialPos);
+	protected final Vector2 currentPos = new Vector2(initialPos);
 
 	/**
 	 * Constructs a {@link GameOverIndicator}.
 	 */
 	public GameOverIndicator() {
-		super(initialPos.x, initialPos.y, 30f, 12f, 0f, 0f);
+		super(initialPos.x, initialPos.y, 20f, 20f, 0f, 0f);
 	}
 
 	@Override
@@ -59,7 +59,15 @@ public class GameOverIndicator extends BasicEntity {
 
 	@Override
 	public void render(SpriteBatch spriteBatch, float delta) {
-		spriteBatch.draw(Art.gameOver, x, y, width, height);
+		spriteBatch.draw(Art.gameOverScreen, x - width / 2, y - height / 2,
+				width, height);
+	}
+
+	/**
+	 * Resets indicator state.
+	 */
+	public void reset() {
+		currentPos.set(initialPos);
 	}
 
 }

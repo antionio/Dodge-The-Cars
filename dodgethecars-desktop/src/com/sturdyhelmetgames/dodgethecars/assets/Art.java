@@ -94,7 +94,8 @@ public class Art {
 	public static TextureRegion trafficLightRed;
 	public static TextureRegion trafficLightYellow;
 	public static TextureRegion trafficLightGreen;
-	public static TextureRegion gameOver;
+	public static TextureRegion gameOverScreen;
+	public static TextureRegion pauseScreen;
 
 	// fonts
 	public static BitmapFont debugFont;
@@ -138,7 +139,8 @@ public class Art {
 		trafficLightRed = new TextureRegion(gameTexture, 259, 0, 84, 177);
 		trafficLightYellow = new TextureRegion(gameTexture, 343, 0, 84, 177);
 		trafficLightGreen = new TextureRegion(gameTexture, 427, 0, 84, 177);
-		gameOver = new TextureRegion(gameTexture, 4, 232, 503, 187);
+		gameOverScreen = new TextureRegion(gameTexture, 21, 249, 231, 231);
+		pauseScreen = new TextureRegion(gameTexture, 255, 249, 231, 231);
 
 		final TextureRegion[][] carFrames = new TextureRegion(carTexture)
 				.split(256, 174);

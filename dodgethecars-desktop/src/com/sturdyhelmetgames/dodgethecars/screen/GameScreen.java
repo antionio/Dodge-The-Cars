@@ -36,6 +36,7 @@ import com.sturdyhelmetgames.dodgethecars.entity.BasicEntity.Direction;
 import com.sturdyhelmetgames.dodgethecars.entity.Car;
 import com.sturdyhelmetgames.dodgethecars.entity.GameOverIndicator;
 import com.sturdyhelmetgames.dodgethecars.entity.Heart;
+import com.sturdyhelmetgames.dodgethecars.entity.PauseIndicator;
 import com.sturdyhelmetgames.dodgethecars.entity.PineCone;
 import com.sturdyhelmetgames.dodgethecars.entity.Point;
 import com.sturdyhelmetgames.dodgethecars.entity.Point.PointType;
@@ -89,6 +90,12 @@ public class GameScreen extends TransitionScreen {
 	 * Tells if the game is paused or not.
 	 */
 	private boolean paused = false;
+
+	/**
+	 * Tells if the game is over or not.
+	 */
+	private boolean gameOver = false;
+
 	/**
 	 * List for game objects.
 	 */
@@ -121,9 +128,14 @@ public class GameScreen extends TransitionScreen {
 	private TrafficLight trafficLight;
 
 	/**
-	 * Game over indicator;
+	 * Game over indicator.
 	 */
-	private GameOverIndicator gameOverIndicator;
+	private final GameOverIndicator gameOverIndicator = new GameOverIndicator();
+
+	/**
+	 * Pause indicator.
+	 */
+	private final PauseIndicator pauseIndicator = new PauseIndicator();
 
 	/**
 	 * Holder for score text position.
@@ -146,7 +158,7 @@ public class GameScreen extends TransitionScreen {
 	 */
 	private boolean isTouchActive = false;
 
-	public GameScreen(DodgeTheCarsGame game) {
+	public GameScreen(final DodgeTheCarsGame game) {
 		super(game);
 
 		player = new Squirrel();
@@ -160,13 +172,33 @@ public class GameScreen extends TransitionScreen {
 				true) {
 			@Override
 			public boolean keyDown(int keyCode) {
-				if (keyCode == Keys.P) {
-					if (paused) {
-						resume();
-					} else {
-						pause();
+				if (gameTime > 3.5f) {
+					if (!paused && !gameOver) {
+						if (keyCode == Keys.P || keyCode == Keys.ESCAPE
+								|| keyCode == Keys.BACK) {
+							pause();
+							return true;
+						}
+					} else if (paused) {
+						if (keyCode == Keys.P || keyCode == Keys.ESCAPE
+								|| keyCode == Keys.BACK || keyCode == Keys.C) {
+							resume();
+							return true;
+						} else if (keyCode == Keys.Q) {
+							updateLeaderboard();
+							game.setScreen(new TitleScreen(game));
+							return true;
+						}
 					}
-					return true;
+
+					if (gameOver) {
+						if (keyCode == Keys.R) {
+							game.setScreen(new GameScreen(game));
+						} else if (keyCode == Keys.Q) {
+							game.setScreen(new TitleScreen(game));
+							return true;
+						}
+					}
 				}
 				return super.keyDown(keyCode);
 			}
@@ -184,6 +216,27 @@ public class GameScreen extends TransitionScreen {
 		}
 	}
 
+	/**
+	 * Activates game over screen.
+	 */
+	private void activateGameOver() {
+		gameOver = true;
+
+		if (Sound.musicHappyGoLucky.isPlaying()) {
+			Sound.musicHappyGoLucky.stop();
+		}
+		Sound.soundSquirrelDie.play();
+		updateLeaderboard();
+	}
+
+	/**
+	 * Update leaderboard with player score.
+	 */
+	private void updateLeaderboard() {
+		EventCache.updateLeaderboard.eventValue = player.score;
+		game.fireEvent(EventCache.updateLeaderboard);
+	}
+
 	@Override
 	protected void updateScreen(float fixedStep) {
 		super.updateScreen(fixedStep);
@@ -191,8 +244,9 @@ public class GameScreen extends TransitionScreen {
 		// check input and after that update entities
 		checkInput(fixedStep);
 
-		if (!paused) {
-
+		if (paused) {
+			pauseIndicator.update(fixedStep);
+		} else {
 			// touch controls if on android
 			if (isTouchActive && player.isAlive()) {
 				stage.act(fixedStep);
@@ -207,7 +261,8 @@ public class GameScreen extends TransitionScreen {
 			carSpeedUpTotalTime += fixedStep;
 
 			trafficLight.update(fixedStep);
-			if (gameOverIndicator != null) {
+
+			if (gameOver) {
 				gameOverIndicator.update(fixedStep);
 			}
 
@@ -308,21 +363,13 @@ public class GameScreen extends TransitionScreen {
 					if (entity instanceof Car) {
 						Car car = (Car) entity;
 
-						// if car hits player, get damage
+						// if car hits player, squirrel takes damage
 						if (car.hit(player)) {
 							if (!player.isDamaged && player.health > 1) {
 								Sound.soundSquirrelHit.play();
 							}
 							if (player.takeDamage()) {
-								gameOverIndicator = new GameOverIndicator();
-								if (Sound.musicHappyGoLucky.isPlaying()) {
-									Sound.musicHappyGoLucky.stop();
-								}
-								Sound.soundSquirrelDie.play();
-
-								// update leaderboard with player score
-								EventCache.updateLeaderboard.eventValue = player.score;
-								game.fireEvent(EventCache.updateLeaderboard);
+								activateGameOver();
 							}
 						}
 
@@ -391,7 +438,6 @@ public class GameScreen extends TransitionScreen {
 				}
 
 			}
-
 			// sort order of entities for drawing, pretty lame solution
 			gameEntities.sort();
 		}
@@ -429,8 +475,12 @@ public class GameScreen extends TransitionScreen {
 		}
 
 		trafficLight.render(spriteBatch, delta);
-		if (gameOverIndicator != null) {
+
+		if (gameOver) {
 			gameOverIndicator.render(spriteBatch, delta);
+		}
+		if (paused) {
+			pauseIndicator.render(spriteBatch, delta);
 		}
 
 		spriteBatch.end();
@@ -519,16 +569,6 @@ public class GameScreen extends TransitionScreen {
 					player.direction = Direction.LEFT;
 					player.acceleration.x = -BasicEntity.ACCELERATION_MAX;
 				}
-			} else {
-				if (Gdx.input.isTouched()) {
-					game.setScreen(new TitleScreen(game));
-				}
-				if (Gdx.input.isKeyPressed(Keys.Y)) {
-					game.setScreen(new GameScreen(game));
-				}
-				if (Gdx.input.isKeyPressed(Keys.N)) {
-					game.setScreen(new TitleScreen(game));
-				}
 			}
 		}
 
@@ -538,6 +578,7 @@ public class GameScreen extends TransitionScreen {
 	public void pause() {
 		super.pause();
 		paused = true;
+		pauseIndicator.reset();
 	}
 
 	@Override
