@@ -16,7 +16,6 @@
 package com.sturdyhelmetgames.dodgethecars;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 import com.sturdyhelmetgames.dodgethecars.assets.Art;
 import com.sturdyhelmetgames.dodgethecars.assets.Sound;
