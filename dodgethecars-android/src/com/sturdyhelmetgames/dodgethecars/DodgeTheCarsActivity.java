@@ -184,7 +184,6 @@ public class DodgeTheCarsActivity extends AndroidApplication {
 		AdView adView = new AdView(this, AdSize.BANNER, ADMOB_PUBLISHER_CODE);
 		AdRequest request = new AdRequest();
 		// request.addTestDevice(AdRequest.TEST_EMULATOR);
-		request.addTestDevice("0146A5B213014005");
 		adView.loadAd(request);
 
 		// Add the AdMob view
